@@ -28,7 +28,7 @@ MAX_LEN_PER_SOURCE = 20000
 # --- Ollama Configuration ---
 OLLAMA_API_URL = "http://localhost:11434/api/generate"
 # *** IMPORTANT: Change this to the model you pulled and want to use ***
-OLLAMA_MODEL = "phi3:instruct" # Corrected model name based on previous recommendation
+OLLAMA_MODEL = "dolphin-phi:latest" # Corrected model name based on previous recommendation
 OLLAMA_REQUEST_TIMEOUT = 120 # Increased timeout slightly for potentially longer streaming
 
 # --- Context Preservation Configuration ---
@@ -391,21 +391,26 @@ def perform_search_and_synthesis(query: str, conversation_history=None):
     """
     print(f"\n[INFO] Received query: {query}")
     
-    # Check if the query itself is a YouTube URL
-    video_id = extract_youtube_video_id(query.split()[0])
-    if video_id:
-        print(f"[INFO] Direct YouTube URL detected in query: {query.split()[0]}")
-        youtube_url = query.split()[0]
+    # Extract YouTube URL from anywhere in the query
+    youtube_url = None
+    query_words = query.split()
+    for word in query_words:
+        video_id = extract_youtube_video_id(word)
+        if video_id:
+            youtube_url = word
+            break
+    
+    if youtube_url:
+        print(f"[INFO] YouTube URL detected in query: {youtube_url}")
+        video_id = extract_youtube_video_id(youtube_url)
         search_results = [youtube_url]  # Use the YouTube URL as the only search result
         
-        # Extract any additional query text after the URL
-        remaining_query = ' '.join(query.split()[1:])
-        if remaining_query:
-            print(f"[INFO] Additional query text: {remaining_query}")
-            query = remaining_query  # Update query to only include the text part
-        else:
+        # Remove the YouTube URL from the query
+        query = query.replace(youtube_url, "").strip()
+        if not query or query.lower() in ["summarize", "summarise", "summary"]:
             # Provide a more detailed default query for YouTube videos
             query = "Provide a detailed summary of this video, covering all main points and key information in a comprehensive way"
+        print(f"[INFO] Updated query for YouTube video: {query}")
     else:
         # Regular web search
         print("[INFO] Searching web using DuckDuckGo...")
