@@ -1,5 +1,48 @@
 # PerPlexity Local
 
+<<<<<<< HEAD
+A local web search and AI response generation tool that uses Ollama for text generation.
+
+## Overview
+
+PerPlexity Local is a command-line application that allows you to search the web and get AI-generated responses based on the search results. It uses DuckDuckGo for web searches and Ollama for text generation.
+
+## Features
+
+- Web search using DuckDuckGo
+- YouTube video transcript extraction and summarization
+- AI-powered response generation using Ollama
+- Conversation history preservation
+- Streaming responses for better user experience
+
+## Requirements
+
+- Python 3.9+
+- Ollama installed and running locally with a compatible model
+
+## Installation
+
+1. Clone the repository
+2. Install dependencies:
+   ```
+   pip install -e .
+   ```
+3. Make sure Ollama is running with your preferred model (default: dolphin-phi:latest)
+
+## Usage
+
+Run the application using one of the following methods:
+
+```bash
+# Using the run script
+python run.py
+
+# Using the module
+python -m perplexity_local
+
+# If installed via pip
+perplexity-local
+=======
 A local implementation of a Perplexity-like search and answer tool that uses DuckDuckGo for web searches and Ollama for local LLM-powered answer synthesis.
 
 ## Features
@@ -73,10 +116,40 @@ Run the program:
 
 ```bash
 python main.py
+>>>>>>> 78986bf3b7c36dc59543c1de9904efa742d7efe6
 ```
 
 ### Commands
 
+<<<<<<< HEAD
+- Enter your query to search the web and get an AI-generated response
+- Type `exit` to quit the application
+- Type `clear history` to clear conversation history
+- Type `toggle history` to enable/disable conversation history
+
+## Project Structure
+
+```
+perplexity_local/
+├── config/           # Configuration settings
+├── core/             # Core functionality modules
+├── utils/            # Utility functions
+└── __main__.py       # Entry point
+```
+
+## Configuration
+
+You can modify the configuration settings in `perplexity_local/config/settings.py`:
+
+- `MAX_RESULTS`: Maximum number of search results to fetch (default: 5)
+- `OLLAMA_MODEL`: The Ollama model to use (default: dolphin-phi:latest)
+- `MAX_HISTORY_TURNS`: Number of previous turns to keep in context (default: 3)
+- `HISTORY_ENABLED`: Toggle for enabling/disabling history (default: True)
+
+## License
+
+MIT
+=======
 - Enter your query at the prompt
 - Type `exit` to quit the program
 - Type `clear history` to clear conversation history
@@ -113,3 +186,4 @@ MIT License
 Contributions are welcome! Please feel free to submit a Pull Request.
 
         
+>>>>>>> 78986bf3b7c36dc59543c1de9904efa742d7efe6
